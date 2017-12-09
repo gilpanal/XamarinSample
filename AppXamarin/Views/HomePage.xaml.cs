@@ -10,7 +10,7 @@ namespace AppXamarin
 
         async void Handle_Clicked(object sender, EventArgs e){
             var buttonClicked = sender as Button;
-            await Navigation.PushAsync(new ItemsPage(buttonClicked.Text));
+            await Navigation.PushAsync(new ItemsPage(buttonClicked.Text))  ;
         }
 
     }

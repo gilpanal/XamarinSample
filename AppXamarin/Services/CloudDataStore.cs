@@ -32,6 +32,17 @@ namespace AppXamarin
 
             return items;
         }
+        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false, string nameOfList="Coches")
+        {
+            // NOT IMPLEMENTED OPTION FOR PARAMETER "nameOfList"
+            if (forceRefresh && CrossConnectivity.Current.IsConnected)
+            {
+                var json = await client.GetStringAsync($"api/item");
+                items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Item>>(json));
+            }
+
+            return items;
+        }
 
         public async Task<Item> GetItemAsync(string id)
         {

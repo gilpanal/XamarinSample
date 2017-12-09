@@ -16,7 +16,7 @@ namespace AppXamarin
         {
             Title = buttonText;
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(buttonText));
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
             {
@@ -26,7 +26,7 @@ namespace AppXamarin
             });
         }
 
-        async Task ExecuteLoadItemsCommand()
+        async Task ExecuteLoadItemsCommand(string buttonText)
         {
             if (IsBusy)
                 return;
@@ -36,7 +36,7 @@ namespace AppXamarin
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetItemsAsync(true, buttonText);
                 foreach (var item in items)
                 {
                     Items.Add(item);
